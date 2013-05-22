@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>这是测试2</title>
+    </head>
+	<body>
+		<cms:module name="test" title="测试页面1">
+			<cms:custom name="link" title="链接测试" group="默认" keys="href:url:链接地址;text:text:连接名称">
+				<a href="$custom.href">$custom.text</a>
+            </cms:custom>
+			
+			<cms:custom name="link2" title="链接测试2" group="默认" keys="href:url:链接地址;text:text:连接名称">
+				<a href="$custom.href">$custom.text</a>
+            </cms:custom>			
+        </cms:module>
+		
+		<cms:module name="module2" title="王八蛋">
+			<cms:custom name="img" title="图片测试" group="默认" keys="href:url:链接地址;img:url:图片地址;height:text:图片高度;width:text:图片宽度;">
+				<a href="$custom.href">
+                    <img src="$custom.img" width="$custom.width" height="$custom.height"/>
+				</a>
+            </cms:custom>
+            
+			<cms:img name="img2" title="图片测试2" group="默认">
+				<a href="$img.href">
+                    <img src="$img.src" alt="$img.alt" width="$img.width" height="$img.height"/>
+				</a>
+            </cms:img>
+			
+			<cms:customs name="textlink" title="百度首页链接" group="默认" keys="href:url:链接地址;text:text:链接名称" rows="5">
+				#foreach($key=>$link in $customs)
+                    <a href="$link.href">$link.text</a>
+				#end
+            </cms:customs>			
+        </cms:module>		
+    </body>
+</html>    
