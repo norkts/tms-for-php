@@ -1,4 +1,4 @@
-<?php $data =  json_decode(file_get_contents("F:/www/cms/src/data/test.json"), true);?>
+<?php $data =  json_decode(file_get_contents("D:/xampp/htdocs/tms/src/data/test.json"), true);?>
 <!DOCTYPE html>
 <html>
 <head>

@@ -46,7 +46,7 @@ class Velocity{
 	public function parseif($line){
 		preg_match('/\#if\((.+)\)/', $line, $match);
 		$src= array();
-		$src[] = "<?php if($1):?>";
+		$src[] = "<?php if($match[1]):?>";
 		
 		$this->_stack[] = "<?php endif;?>";
 		return join(chr(0xA), $src);		
@@ -61,7 +61,7 @@ class Velocity{
 	public function parseset($line){
 		preg_match('/\#set\((.+)\)/', $line, $match);
 		$src= array();
-		$src[] = "<?php $1;?>";
+		$src[] = "<?php $match[1];?>";
 		return join(chr(0xA), $src);		
 	}
 	

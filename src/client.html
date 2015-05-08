@@ -1,0 +1,49 @@
+#set(session_start())
+#set(if($_SESSION == null || !isset($_SESSION["is_login"])){)
+#set(    if(!isset($_GET["user"]) || !isset($_GET["pass"]) || $_GET["user"] != "admin" || $_GET["pass"] != "chengtooadmin"){)
+#set(        die("invalid user or password!"))
+#set(    }else{)
+#set($_SESSION["is_login"] = true)
+#set(})
+
+#set(})
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>房管通客户端发布系统</title>
+        <style>
+            table, tr, td, th{
+                border: 1px solid #000;
+            }
+        </style>
+    </head>
+    <body>    
+    <cms:module name="MainClient" title="客户端JS文件更新">
+        <cms:customs name="ClientName" title="客户端JS文件列表" keys="name:text:PMS名称;key:text:JS程序简称;url:url:JS文件地址;version:text:JS文件版本号;publickey:text:publickey;secretkey:text:secretkey;dbconn:text:连接字符串" rows="5">
+            <table>
+            <tr>
+                <th>PMS名称</th>
+                <th>JS程序简称</th>
+                <th>JS文件地址</th>
+                <th>JS文件版本号</th>
+                <th>publickey</th>
+                <th>secretkey</th>
+                <th>dbconn</th>
+            </tr>
+            #foreach($key=>$item in $customs)
+                <tr>
+                    <td>$item.name</td>
+                    <td>$item.key</td>
+                    <td>$item.url</td>
+                    <td>$item.version</td>
+                    <td>$item.publickey</td>
+                    <td>$item.secretkey</td>
+                    <td>$item.dbconn</td>
+                </tr>
+            #end
+            </table>
+        </cms:customs>
+    </cms:module>
+    </body>
+</html>

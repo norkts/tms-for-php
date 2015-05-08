@@ -1,35 +1,44 @@
 <?php
-
+require_once("Velocity.class.php");
 class Cms{
 	
-	var $tpl = null;
-	var $tplname = "";
+	public   $tpl = null;
+	public   $tplname = "";
 	
-	var $source = array();
-	var $editSource = array();
+	public   $source = array();
+	public   $editSource = array();
 	
-	var $cache = "./src/cache/";
-	var $tplPath = "./src/";
-	var $dataPath = "./src/data/";
-	var $formPath = "./src/form/";
+	public   $cache = "src/cache/";
+	public   $tplPath = "src/";
+	public   $dataPath = "src/data/";
+	public   $formPath = "src/form/";
 	
-	var $data = array(); 
+	public   $data = array(); 
 	
-	var $module = null;
-	var $tag = null;
-	var $br = "";
+	public   $module = null;
+	public   $tag = null;
+	public   $br = "";
 	
-	var $velocity = null;
-	public function __construct($tpl){
+	public $velocity = null;
+	public function __construct($tpl = "", $init = true){
+        
+        $this->cache = realpath($this->cache) . "/";
+        $this->tplPath = realpath($this->tplPath) . "/";
+        $this->dataPath = realpath($this->dataPath) . "/";
+        $this->formPath = realpath($this->formPath) . "/";
+        
 		$this->tplname = $tpl;
-		
-		if(!file_exists($this->dataPath.$this->tplname.".json") || !file_exists($this->cache.$this->tplname.".php")){
-			$this->init();
-		}else{
-			$data = $this->getData();
-			$this->data = $data;
-		}
 		$this->velocity = new Velocity();
+
+        if($init){
+            if(!file_exists($this->dataPath.$this->tplname.".json") || !file_exists($this->cache.$this->tplname.".php")){
+                $this->init();
+            }else{
+                $data = $this->getData();
+                $this->data = $data;
+            }            
+        }
+
 	}
 	
 	public function init(){
@@ -162,7 +171,6 @@ class Cms{
 		unlink($this->formPath.$this->tplname.".php");
 		if(!file_exists($this->formPath.$this->tplname.".php")){
 			$data = $this->data[$module];
-			
 			$formArr = array();
 			$formArr[] = "<?php include('".str_replace('\\', '/', realpath('.'))."/header.php');?>";
 			$formArr[] = "<form action='cms.php' method='get'>";
@@ -172,6 +180,7 @@ class Cms{
 			$formArr[] = "<input type='hidden' name='act' value='save'/>";
 			$formArr[] = "<div class='module-form' data-name='".$module."'>";
 			$formArr[] = "<h1>".$data['title']."</h1>";
+            
 			foreach ($data['data'] as $key=>$val){
 				$formArr[] = "<table>";
 				$formArr[] = "<caption>$val[title]</caption>";				

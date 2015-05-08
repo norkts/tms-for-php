@@ -1,6 +1,6 @@
 <?php
-include 'lib/Cms.class.php';
-include 'lib/Velocity.class.php';
+require_once 'lib/Cms.class.php';
+require_once 'lib/Velocity.class.php';
 
 if(!isset($_GET['file'])){
 	exit();
